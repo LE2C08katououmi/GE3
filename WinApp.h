@@ -16,6 +16,8 @@ public:
 
 	void Update();
 
+	void Finalize();
+
 	HWND GetHwnd() const { return hwnd; }
 	HINSTANCE GetHInstace() const { return w.hInstance; }
 

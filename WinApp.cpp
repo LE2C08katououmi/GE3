@@ -46,3 +46,8 @@ void WinApp::Initialize()
 void WinApp::Update()
 {
 }
+
+void WinApp::Finalize()
+{
+    UnregisterClass(w.lpszClassName, w.hInstance);
+}

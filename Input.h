@@ -6,6 +6,8 @@
 #define DIRECTINPUT_VERSION		0x0800
 #include <dinput.h>
 
+#include "WinApp.h"
+
 class Input
 {
 public:
@@ -16,7 +18,7 @@ public:
 
 public:
 
-	void Initialize(HINSTANCE hInstance,HWND hwnd);
+	void Initialize(WinApp* winApp);
 
 	void Update();
 
@@ -24,4 +26,6 @@ private:
 	ComPtr<IDirectInputDevice8> keyboard;
 
 	BYTE key[256] = {};
+
+	WinApp* winApp = nullptr;
 };
