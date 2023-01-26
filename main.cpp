@@ -6,8 +6,6 @@
 #include <DirectXMath.h>
 #include <DirectXTex.h>
 #include <d3dcompiler.h>
-#define DIRECTINPUT_VERSION     0x0800   // DirectInputのバージョン指定
-#include <dinput.h>
 #include <wrl.h>
 #include "Input.h"
 #include "WinApp.h"
@@ -217,11 +215,11 @@ LRESULT WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam) {
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 #pragma region ポインタ置き場
-    //ポインタ
-    Input* input = nullptr;
-
     // ポインタ
     WinApp* winApp = nullptr;
+
+    //ポインタ
+    Input* input = nullptr;
 
 #pragma endregion
 
@@ -477,14 +475,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     // DirectX初期化処理　ここまで
 #pragma endregion
+    // WindowsAPIの初期化
+    winApp = new WinApp();
+    winApp->Initialize();
 
      //入力の初期化
     input = new Input();
     input->Initialize(winApp);
-
-    // WindowsAPIの初期化
-    winApp = new WinApp();
-    winApp->Initialize();
 
 #pragma region 描画初期化処理
 

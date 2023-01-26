@@ -6,9 +6,9 @@
 
 void Input::Initialize(WinApp* winApp)
 {
-	this->winApp = winApp;
-
 	HRESULT result;
+
+	this->winApp = winApp;
 
 	ComPtr<IDirectInput8>directInput = nullptr;
 	result = DirectInput8Create(winApp->GetHInstace(), DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&directInput, nullptr);
