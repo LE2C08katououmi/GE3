@@ -1,23 +1,17 @@
-﻿#include <d3d12.h>
-#include <dxgi1_6.h>
-#include <cassert>
-#include <vector>
-#include <string>
+﻿#include <string>
 #include <DirectXMath.h>
 #include <DirectXTex.h>
 #include <d3dcompiler.h>
-#include <wrl.h>
 #include "Input.h"
 #include "WinApp.h"
+#include "DirectXCommon.h"
 
-#pragma comment(lib, "d3d12.lib")
-#pragma comment(lib, "dxgi.lib")
+
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "dinput8.lib")
 #pragma comment(lib, "dxguid.lib")
 
 using namespace DirectX;
-using namespace Microsoft::WRL;
 
 // 頂点データ構造体
 struct Vertex
@@ -206,6 +200,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     //ポインタ
     Input* input = nullptr;
+
+    DirectXCommon* dxCommon = nullptr;
+    dxCommon = new DirectXCommon();
+    dxCommon->Initialize();
 
 #pragma endregion
 
@@ -1114,6 +1112,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
     delete input;
     // WindowsAPI解放
     delete winApp;
+    delete dxCommon;
 
     return 0;
 }
