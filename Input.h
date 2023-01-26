@@ -12,6 +12,8 @@ public:
 
 	template <class T> using ComPtr = Microsoft::WRL::ComPtr<T>;
 
+	bool PushKey(BYTE keyNumber);
+
 public:
 
 	void Initialize(HINSTANCE hInstance,HWND hwnd);
@@ -20,4 +22,6 @@ public:
 
 private:
 	ComPtr<IDirectInputDevice8> keyboard;
+
+	BYTE key[256] = {};
 };
