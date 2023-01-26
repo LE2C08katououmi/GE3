@@ -16,6 +16,8 @@ public:
 
 	void Finalize();
 
+	bool ProcessMessage();
+
 	HWND GetHwnd() const { return hwnd; }
 	HINSTANCE GetHInstace() const { return w.hInstance; }
 

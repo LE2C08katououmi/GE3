@@ -940,6 +940,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
     // ゲームループ
     while (true) {
+        if (winApp->ProcessMessage()) {
+            break;
+        }
         // メッセージがある？
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
             TranslateMessage(&msg); // キー入力メッセージの処理
