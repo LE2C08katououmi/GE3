@@ -263,8 +263,7 @@ void DirectXCommon::PreDraw()
 	rtvHandle.ptr += bbIndex * device->GetDescriptorHandleIncrementSize(rtvHeapDesc.Type);
 	// 深度ステンシルビュー用デスクリプタヒープのハンドルを取得
 	D3D12_CPU_DESCRIPTOR_HANDLE dsvHandle = dsvHeap->GetCPUDescriptorHandleForHeapStart();
-	commandList->OMSetRenderTargets(1, &rtvHandle, false, &dsvHandle);
-	// 描画先子指定
+	// 描画先指定
 	commandList->OMSetRenderTargets(1, &rtvHandle, false, &dsvHandle);
 
 	// ３．画面クリア           R     G     B    A

@@ -27,6 +27,9 @@ public:
 
 	void PostDraw();
 
+	ID3D12Device* GetDevice() const { return device.Get(); }
+	ID3D12GraphicsCommandList* GetCommandList() const { return commandList.Get(); }
+
 private:
 
 	Microsoft::WRL::ComPtr<ID3D12Device> device;
