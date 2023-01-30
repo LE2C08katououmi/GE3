@@ -3,66 +3,94 @@
 #include <dxgi1_6.h>
 #include <wrl.h>
 #include <vector>
+#include <chrono>
 
 #include "WinApp.h"
 
-class DirectXCommon
+class DirectXcommon
 {
-public:
-	void Initialize();
+public://メンバ関数
+	//初期化
+	void Initialize(WinApp* winApp);
 
-	void InitializeDevice();
-
-	void InitializeCommand();
-
-	void InitializeSwapchain();
-
-	void InitializeRenderTargetView();
-
-	void InitializeDepthBuffer();
-
-	void InitializeFence();
-
+	/// <summary>
+	///描画前処理
+	/// </summary>
 	void PreDraw();
 
+	/// <summary>
+	///	描画後処理
+	/// </summary>
 	void PostDraw();
 
+	//デバイス取得
 	ID3D12Device* GetDevice() const { return device.Get(); }
+
+	//コマンドリスト取得
 	ID3D12GraphicsCommandList* GetCommandList() const { return commandList.Get(); }
+private:
+	/// <summary>
+	/// デバイス初期化
+	/// </summary>
+	void InitializeDevice();
+
+	/// <summary>
+	/// コマンド関連の初期化
+	/// </summary>
+	void InitializeCommand();
+
+	/// <summary>
+	/// スワップチェーン初期化
+	/// </summary>
+	void InitializeSwapchain();
+
+	/// <summary>
+	/// レンダーターゲットビューの初期化
+	/// </summary>
+	void InitializeRenderTargetView();
+	/// <summary>
+	/// 深度バッファ
+	/// </summary>
+	void InitializeDepthBuffer();
+
+	/// <summary>
+	/// フェンスの初期化
+	/// </summary>
+	void InitializeFence();
+
+private:// メンバ関数
+	// FPS固定初期化
+	void InitializeFixFPS();
+	// FPS固定更新
+	void UpdateFixFPS();
+	// 記録時間(FPS固定用)
+	std::chrono::steady_clock::time_point reference_;
 
 private:
+	WinApp* winApp = nullptr;
 
+	//デバイス
 	Microsoft::WRL::ComPtr<ID3D12Device> device;
 	Microsoft::WRL::ComPtr<IDXGIFactory7> dxgiFactory;
 
-	DXGI_SWAP_CHAIN_DESC1 swapChainDesc{};
-	// デスクリプタヒープの設定
-	D3D12_DESCRIPTOR_HEAP_DESC rtvHeapDesc{};
-	// 頂点バッファビューの作成
-	D3D12_VERTEX_BUFFER_VIEW vbView{};
-	// インデックスバッファビューの作成
-	D3D12_INDEX_BUFFER_VIEW ibView{};
-
-	D3D12_RESOURCE_BARRIER barrierDesc{};
-
-	std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>> backBuffers;
-
-	Microsoft::WRL::ComPtr<IDXGISwapChain4> swapChain;
+	//コマンド関連
 	Microsoft::WRL::ComPtr<ID3D12CommandAllocator> commandAllocator;
 	Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> commandList;
 	Microsoft::WRL::ComPtr<ID3D12CommandQueue> commandQueue;
+
+	//スワップチェーン
+	Microsoft::WRL::ComPtr<IDXGISwapChain4> swapChain;
+	DXGI_SWAP_CHAIN_DESC1 swapChainDesc{};
+
+	//レンダーターゲットビュー
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> rtvHeap;
+	std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>> backBuffers;
+
+	//深度バッファ
+	Microsoft::WRL::ComPtr<ID3D12Resource> depthBuff;
 	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> dsvHeap;
-	Microsoft::WRL::ComPtr<ID3D12PipelineState> pipelineState;
-	Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature;
-	Microsoft::WRL::ComPtr<ID3D12Resource> constBuffMaterial;
-	Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> srvHeap;
+
+	//フェンス
 	Microsoft::WRL::ComPtr<ID3D12Fence> fence;
-
-	WinApp* winApp = nullptr;
-
-	size_t textureIndex = 0;
-
 	UINT64 fenceVal = 0;
 };
-
