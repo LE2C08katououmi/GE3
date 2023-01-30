@@ -1,8 +1,8 @@
 ﻿
 #include "WinApp.h"
-// ウィンドウプロシージャ
 
 #pragma comment(lib,"winmm.lib")
+// ウィンドウプロシージャ
 
 LRESULT WinApp::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
@@ -21,9 +21,6 @@ LRESULT WinApp::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 
 void WinApp::Initialize()
 {
-    // システムタイマーの分解能を上げる
-    timeBeginPeriod(1);
-
     // ウィンドウクラスの設定
     w.cbSize = sizeof(WNDCLASSEX);
     w.lpfnWndProc = (WNDPROC)WindowProc; // ウィンドウプロシージャを設定
@@ -50,6 +47,8 @@ void WinApp::Initialize()
         nullptr,                // メニューハンドル
         w.hInstance,            // 呼び出しアプリケーションハンドル
         nullptr);               // オプション
+    //システムタイマーの分解能をあげる
+    timeBeginPeriod(1);
 
     // ウィンドウを表示状態にする
     ShowWindow(hwnd, SW_SHOW);

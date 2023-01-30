@@ -7,7 +7,7 @@
 
 #include "WinApp.h"
 
-class DirectXcommon
+class DirectXCommon
 {
 public://メンバ関数
 	//初期化
@@ -28,6 +28,8 @@ public://メンバ関数
 
 	//コマンドリスト取得
 	ID3D12GraphicsCommandList* GetCommandList() const { return commandList.Get(); }
+
+
 private:
 	/// <summary>
 	/// デバイス初期化
@@ -58,13 +60,15 @@ private:
 	/// </summary>
 	void InitializeFence();
 
-private:// メンバ関数
-	// FPS固定初期化
+	/// <summary>
+	/// FPS固定初期化
+	/// </summary>
 	void InitializeFixFPS();
-	// FPS固定更新
+
+	/// <summary>
+	///	FPS固定更新
+	/// </summary>
 	void UpdateFixFPS();
-	// 記録時間(FPS固定用)
-	std::chrono::steady_clock::time_point reference_;
 
 private:
 	WinApp* winApp = nullptr;
@@ -93,4 +97,7 @@ private:
 	//フェンス
 	Microsoft::WRL::ComPtr<ID3D12Fence> fence;
 	UINT64 fenceVal = 0;
+
+	//記録時間(FPS固定用)
+	std::chrono::steady_clock::time_point reference_;
 };
